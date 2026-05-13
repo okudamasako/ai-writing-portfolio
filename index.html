@@ -2869,6 +2869,170 @@
         padding: 1rem 1.1rem;
       }
     }
+
+    /* ══════════════════════════════════════════
+       ポートフォリオ スクリーンショット グリッド
+       (pf-* クラス群)
+    ══════════════════════════════════════════ */
+
+    /* エリア外枠 */
+    .pf-screenshot-area {
+      margin-top: 2.5rem;
+      padding: 2rem 2.5rem 2.5rem;
+      background: var(--white);
+      border: 1px solid var(--stone);
+      border-radius: 6px;
+    }
+
+    /* ── Threads: 縦長×2 + 横長×2 の2×2グリッド ── */
+    .pf-threads-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.2rem;
+    }
+
+    /* ── Instagram: 2×2グリッド（横長画像） ── */
+    .pf-ig-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
+
+    /* ── 共通カード ── */
+    .pf-card {
+      background: var(--ivory);
+      border: 1px solid var(--stone);
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    }
+
+    .pf-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 36px rgba(44, 40, 37, 0.09);
+      border-color: var(--rose-mid);
+    }
+
+    /* 画像ラッパー: 縦長 */
+    .pf-card--portrait .pf-card-img-wrap {
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+    }
+
+    /* 画像ラッパー: 横長 */
+    .pf-card--landscape .pf-card-img-wrap {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+    }
+
+    .pf-card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .pf-card:hover .pf-card-img-wrap img {
+      transform: scale(1.03);
+    }
+
+    /* キャプション */
+    .pf-card-caption {
+      padding: 0.55rem 0.85rem 0.6rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-lt);
+      background: var(--white);
+      border-top: 1px solid var(--stone);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── ライトボックス ── */
+    #pf-lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(30, 27, 24, 0.85);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    #pf-lightbox.open {
+      display: flex;
+    }
+
+    #pf-lightbox-img {
+      max-width: min(90vw, 900px);
+      max-height: 88vh;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+      animation: lbFadeIn 0.22s ease;
+    }
+
+    @keyframes lbFadeIn {
+      from { opacity: 0; transform: scale(0.96); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    #pf-lightbox-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.4rem;
+      width: 2.2rem;
+      height: 2.2rem;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50%;
+      color: rgba(255,255,255,0.85);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      line-height: 1;
+    }
+
+    #pf-lightbox-close:hover {
+      background: rgba(255,255,255,0.22);
+    }
+
+    /* ── レスポンシブ ── */
+    @media (max-width: 768px) {
+      .pf-threads-grid,
+      .pf-ig-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pf-card--portrait .pf-card-img-wrap {
+        aspect-ratio: 4 / 3;
+      }
+
+      .pf-card--landscape .pf-card-img-wrap {
+        aspect-ratio: 16 / 10;
+      }
+
+      .pf-screenshot-area {
+        padding: 1.2rem 1rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .pf-threads-grid,
+      .pf-ig-grid {
+        gap: 0.8rem;
+      }
+    }
   </style>
 </head>
 
@@ -3765,26 +3929,34 @@
         </div>
 
         <!-- Threads スクショ配置エリア -->
-        <div class="screenshot-area reveal" style="background:var(--white); border-color:var(--stone);">
+        <div class="pf-screenshot-area reveal">
           <p class="screenshot-area-label">実際の投稿スクリーンショット / Threads</p>
-          <div class="screenshot-slots">
-            <div class="screenshot-slot">
-              <img src="images/threads/threads-post-01.png" alt="Threads post screenshot"
-                style="width:100%; height:auto;">
-              <span class="screenshot-slot-url">@sayaka_writes</span>
+          <div class="pf-threads-grid">
+            <div class="pf-card pf-card--portrait pf-lightbox-trigger" data-src="images/threads/threads-post-01.png" data-alt="Threads 投稿 @sayaka_angel">
+              <div class="pf-card-img-wrap">
+                <img src="images/threads/threads-post-01.png" alt="Threads 投稿 @sayaka_angel">
+              </div>
+              <p class="pf-card-caption">@sayaka_angel — 投稿</p>
             </div>
-            <div class="screenshot-slot">
-              <img src="images/threads/threads-profile-01.png" alt="Threads profile screenshot"
-                style="width:100%; height:auto;">
-              <span class="screenshot-slot-url">@sayaka_writes</span>
+            <div class="pf-card pf-card--portrait pf-lightbox-trigger" data-src="images/threads/threads-post-02.png" data-alt="Threads 投稿 @manami_endo_6v6">
+              <div class="pf-card-img-wrap">
+                <img src="images/threads/threads-post-02.png" alt="Threads 投稿 @manami_endo_6v6">
+              </div>
+              <p class="pf-card-caption">@manami_endo_6v6 — 投稿</p>
             </div>
-            <div class="screenshot-slot">
-              <img src="images/threads/threads-post-02.png" alt="Threads post screenshot"
-                style="width:100%; height:auto;">
-              <span class="screenshot-slot-url">@manami_writes</span>
+            <div class="pf-card pf-card--landscape pf-lightbox-trigger" data-src="images/threads/threads-profile-01.png" data-alt="Threads プロフィール @sayaka_angel">
+              <div class="pf-card-img-wrap">
+                <img src="images/threads/threads-profile-01.png" alt="Threads プロフィール @sayaka_angel">
+              </div>
+              <p class="pf-card-caption">@sayaka_angel — プロフィール</p>
+            </div>
+            <div class="pf-card pf-card--landscape pf-lightbox-trigger" data-src="images/threads/threads-profile-02.png" data-alt="Threads プロフィール @manami_endo_6v6">
+              <div class="pf-card-img-wrap">
+                <img src="images/threads/threads-profile-02.png" alt="Threads プロフィール @manami_endo_6v6">
+              </div>
+              <p class="pf-card-caption">@manami_endo_6v6 — プロフィール</p>
             </div>
           </div>
-          <p class="screenshot-area-hint">※ 縦長スクリーンショットをそのまま &lt;img&gt; に差し替えてください。アカウント名も合わせて更新をお願いします。</p>
         </div>
       </div>
     </div>
@@ -3863,23 +4035,34 @@
         </div>
 
         <!-- Instagram スクショ配置エリア -->
-        <div class="screenshot-area reveal" style="margin-top:2rem; background:var(--ivory);">
+        <div class="pf-screenshot-area reveal" style="margin-top:2rem;">
           <p class="screenshot-area-label">実際の投稿スクリーンショット / Instagram</p>
-          <div class="screenshot-slots">
-            <div class="screenshot-slot">
-              <img src="images/instagram/instagram-profile-01.png" alt="Instagram post screenshot"
-                style="width:100%; height:auto;">
+          <div class="pf-ig-grid">
+            <div class="pf-card pf-card--landscape pf-lightbox-trigger" data-src="images/instagram/instagram-profile-01.png" data-alt="Instagram プロフィール @sayaka_angel">
+              <div class="pf-card-img-wrap">
+                <img src="images/instagram/instagram-profile-01.png" alt="Instagram プロフィール @sayaka_angel">
+              </div>
+              <p class="pf-card-caption">@sayaka_angel — プロフィール</p>
             </div>
-            <div class="screenshot-slot">
-              <img src="images/instagram/instagram-grid-01.png" alt="Instagram profile screenshot"
-                style="width:100%; height:auto;">
+            <div class="pf-card pf-card--landscape pf-lightbox-trigger" data-src="images/instagram/instagram-grid-01.png" data-alt="Instagram フィード @sayaka_angel">
+              <div class="pf-card-img-wrap">
+                <img src="images/instagram/instagram-grid-01.png" alt="Instagram フィード @sayaka_angel">
+              </div>
+              <p class="pf-card-caption">@sayaka_angel — フィード</p>
             </div>
-            <div class="screenshot-slot">
-              <img src="images/instagram/instagreel-01.png" alt="Instagram post screenshot"
-                style="width:100%; height:auto;">
+            <div class="pf-card pf-card--landscape pf-lightbox-trigger" data-src="images/instagram/instagreel-01.png" data-alt="Instagram リール @sayaka_angel">
+              <div class="pf-card-img-wrap">
+                <img src="images/instagram/instagreel-01.png" alt="Instagram リール @sayaka_angel">
+              </div>
+              <p class="pf-card-caption">@sayaka_angel — リール投稿</p>
+            </div>
+            <div class="pf-card pf-card--landscape pf-lightbox-trigger" data-src="images/threads/threads-profile-01.png" data-alt="Instagram 連携 sayaka_angel">
+              <div class="pf-card-img-wrap">
+                <img src="images/threads/threads-profile-01.png" alt="SNS連携 @sayaka_angel">
+              </div>
+              <p class="pf-card-caption">@sayaka_angel — SNS連携</p>
             </div>
           </div>
-          <p class="screenshot-area-hint">※ フィードのスクリーンショット（横3列表示）を入れると世界観の統一感が最も伝わります。</p>
         </div>
       </div>
     </div>
@@ -4174,7 +4357,7 @@
         媒体の方向性や読者層を教えていただければ、<br>
         より具体的なご提案ができます。
       </p>
-      <a href="mailto:okudamasako0209@gmail.com" class="contact-cta">okudamasako0209@gmail.com</a>
+      <a href="mailto:okudamasako0209@gmail.com" class="contact-cta">お問い合わせはこちら</a>
       <p class="contact-note">返信まで通常1〜2営業日いただいております。</p>
     </div>
   </section>
@@ -4272,6 +4455,53 @@
           btn.classList.toggle('active', btn.dataset.size === size);
         });
       }
+    })();
+  </script>
+
+  <!-- ライトボックスオーバーレイ -->
+  <div id="pf-lightbox" role="dialog" aria-modal="true" aria-label="画像を拡大表示">
+    <button id="pf-lightbox-close" aria-label="閉じる">✕</button>
+    <img id="pf-lightbox-img" src="" alt="">
+  </div>
+
+  <script>
+    // ── ポートフォリオ ライトボックス ──
+    (function () {
+      const lb      = document.getElementById('pf-lightbox');
+      const lbImg   = document.getElementById('pf-lightbox-img');
+      const lbClose = document.getElementById('pf-lightbox-close');
+
+      function openLb(src, alt) {
+        lbImg.src = src;
+        lbImg.alt = alt || '';
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLb() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+        // src をリセットして再アニメを有効化
+        setTimeout(() => { lbImg.src = ''; }, 220);
+      }
+
+      document.querySelectorAll('.pf-lightbox-trigger').forEach(el => {
+        el.addEventListener('click', () => {
+          const src = el.dataset.src || el.querySelector('img')?.src;
+          const alt = el.dataset.alt || el.querySelector('img')?.alt || '';
+          if (src) openLb(src, alt);
+        });
+      });
+
+      lbClose.addEventListener('click', closeLb);
+
+      lb.addEventListener('click', (e) => {
+        if (e.target === lb) closeLb();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lb.classList.contains('open')) closeLb();
+      });
     })();
   </script>
 </body>
