@@ -1521,7 +1521,7 @@
       aspect-ratio: 1;
       position: relative;
       overflow: hidden;
-      cursor: pointer;
+      cursor: default;
     }
 
     .ig-cell-inner {
@@ -3189,7 +3189,8 @@
       <div style="margin-top: 3rem; margin-bottom: 5rem;">
         <div class="reveal reveal-delay-1" style="max-width: 100%; margin-bottom: 2.5rem;">
           <img src="/images/dify/dify-workflow-01.png" alt="Dify ワークフロー設計"
-            style="width: 100%; max-width: 1000px; display: block; border-radius: 2px; border: 1px solid var(--stone); margin: 0 auto;" />
+            class="pf-lightbox-trigger"
+            style="width: 100%; max-width: 1000px; display: block; border-radius: 2px; border: 1px solid var(--stone); margin: 0 auto; cursor: pointer;" />
         </div>
         <div class="reveal reveal-delay-2" style="max-width: 680px; margin: 0 auto;">
           <p style="font-size: 0.9rem; color: var(--ink-mid); line-height: 2.15; margin-bottom: 1.8rem;">
@@ -3227,7 +3228,8 @@
       <div style="margin-bottom: 5rem;">
         <div class="reveal reveal-delay-1" style="max-width: 100%; margin-bottom: 2.5rem;">
           <img src="/images/dify/dify-rag-01.png" alt="Dify RAG - ナレッジ参照"
-            style="width: 100%; max-width: 1000px; display: block; border-radius: 2px; border: 1px solid var(--stone); margin: 0 auto;" />
+            class="pf-lightbox-trigger"
+            style="width: 100%; max-width: 1000px; display: block; border-radius: 2px; border: 1px solid var(--stone); margin: 0 auto; cursor: pointer;" />
         </div>
         <div class="reveal reveal-delay-2" style="max-width: 680px; margin: 0 auto;">
           <p style="font-size: 0.9rem; color: var(--ink-mid); line-height: 2.15;">
@@ -3249,7 +3251,8 @@
       <div style="margin-top: 3rem; margin-bottom: 5rem;">
         <div class="reveal reveal-delay-1" style="max-width: 100%; margin-bottom: 2.5rem;">
           <img src="/images/make/make-automation-01.png" alt="Make 自動化ワークフロー"
-            style="width: 100%; max-width: 1000px; display: block; border-radius: 2px; border: 1px solid var(--stone); margin: 0 auto;" />
+            class="pf-lightbox-trigger"
+            style="width: 100%; max-width: 1000px; display: block; border-radius: 2px; border: 1px solid var(--stone); margin: 0 auto; cursor: pointer;" />
         </div>
         <div class="reveal reveal-delay-2" style="max-width: 680px; margin: 0 auto;">
           <p style="font-size: 0.9rem; color: var(--ink-mid); line-height: 2.15; margin-bottom: 1.8rem;">
@@ -3289,7 +3292,8 @@
       <div style="margin-bottom: 2rem;">
         <div class="reveal reveal-delay-1" style="max-width: 100%; margin-bottom: 2.5rem;">
           <img src="/images/make/make-slack-01.png" alt="Make Slack 連携"
-            style="width: 100%; max-width: 1000px; display: block; border-radius: 2px; border: 1px solid var(--stone); margin: 0 auto;" />
+            class="pf-lightbox-trigger"
+            style="width: 100%; max-width: 1000px; display: block; border-radius: 2px; border: 1px solid var(--stone); margin: 0 auto; cursor: pointer;" />
         </div>
         <div class="reveal reveal-delay-2" style="max-width: 680px; margin: 0 auto;">
           <p style="font-size: 0.9rem; color: var(--ink-mid); line-height: 2.15;">
@@ -4040,19 +4044,19 @@
         <div class="pf-screenshot-area reveal" style="margin-top:2rem;">
           <p class="screenshot-area-label">実際の投稿スクリーンショット / Instagram</p>
           <div class="pf-ig-grid">
-            <div class="pf-card pf-card--landscape" data-src="images/instagram/instagram-profile-01.png" data-alt="Instagram プロフィール @sayaka_angel">
+            <div class="pf-card pf-card--landscape pf-lightbox-trigger" data-src="images/instagram/instagram-profile-01.png" data-alt="Instagram プロフィール @sayaka_angel">
               <div class="pf-card-img-wrap">
                 <img src="images/instagram/instagram-profile-01.png" alt="Instagram プロフィール @sayaka_angel">
               </div>
               <p class="pf-card-caption">@sayaka_angel — プロフィール</p>
             </div>
-            <div class="pf-card pf-card--landscape" data-src="images/instagram/instagram-grid-01.png" data-alt="Instagram フィード @sayaka_angel">
+            <div class="pf-card pf-card--landscape pf-lightbox-trigger" data-src="images/instagram/instagram-grid-01.png" data-alt="Instagram フィード @sayaka_angel">
               <div class="pf-card-img-wrap">
                 <img src="images/instagram/instagram-grid-01.png" alt="Instagram フィード @sayaka_angel">
               </div>
               <p class="pf-card-caption">@sayaka_angel — フィード</p>
             </div>
-            <div class="pf-card pf-card--landscape" data-src="images/instagram/instagram-reel-01.png" data-alt="Instagram リール @sayaka_angel">
+            <div class="pf-card pf-card--landscape pf-lightbox-trigger" data-src="images/instagram/instagram-reel-01.png" data-alt="Instagram リール @sayaka_angel">
               <div class="pf-card-img-wrap">
                 <img src="images/instagram/instagram-reel-01.png" alt="Instagram リール @sayaka_angel">
               </div>
@@ -4483,9 +4487,11 @@
       }
 
       document.querySelectorAll('.pf-lightbox-trigger').forEach(el => {
-        el.addEventListener('click', () => {
-          const src = el.dataset.src || el.querySelector('img')?.src;
-          const alt = el.dataset.alt || el.querySelector('img')?.alt || '';
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          // el自身がimgの場合はsrc、そうでない場合はdataset.srcか子要素のimg.srcを使用
+          const src = el.dataset.src || (el.tagName === 'IMG' ? el.src : el.querySelector('img')?.src);
+          const alt = el.dataset.alt || (el.tagName === 'IMG' ? el.alt : el.querySelector('img')?.alt) || '';
           if (src) openLb(src, alt);
         });
       });
