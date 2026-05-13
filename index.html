@@ -1542,6 +1542,9 @@
   .screenshot-slots.cols-2 {
     grid-template-columns: repeat(2, 1fr);
   }
+  .screenshot-slots.cols-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
   .screenshot-slot {
     aspect-ratio: 9/16;
     background: var(--white);
@@ -1564,7 +1567,7 @@
   .screenshot-slot img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
   }
   .screenshot-slot-placeholder {
@@ -1981,7 +1984,8 @@
     .yt-key-quote { padding: 1.5rem 1.8rem; font-size: 0.9rem; }
 
     /* スクショ */
-    .screenshot-slots { grid-template-columns: repeat(2, 1fr); }
+    .screenshot-slots,
+    .screenshot-slots.cols-4 { grid-template-columns: repeat(2, 1fr); }
     .screenshot-slots.cols-2 { grid-template-columns: 1fr 1fr; }
   }
 
@@ -2018,7 +2022,8 @@
 
     /* スクショ */
     .screenshot-slots,
-    .screenshot-slots.cols-2 { grid-template-columns: 1fr; }
+    .screenshot-slots.cols-2,
+    .screenshot-slots.cols-4 { grid-template-columns: 1fr; }
     .screenshot-slot.wide { aspect-ratio: 16/9; }
     .screenshot-slot { aspect-ratio: 1; }
 
@@ -2934,17 +2939,25 @@
       <!-- Threads スクショ配置エリア -->
       <div class="screenshot-area reveal" style="background:var(--white); border-color:var(--stone);">
         <p class="screenshot-area-label">実際の投稿スクリーンショット / Threads</p>
-        <div class="screenshot-slots">
+        <div class="screenshot-slots cols-4">
+          <!-- 1. Sayaka 投稿 -->
           <div class="screenshot-slot">
-            <img src="images/threads/threads-post-01.png" alt="Threads post screenshot" style="width:100%; height:auto;">
+            <img src="images/threads/threads-post-01.png" alt="Threads post screenshot (Sayaka)">
             <span class="screenshot-slot-url">@sayaka_writes</span>
           </div>
+          <!-- 2. Sayaka プロフィール -->
           <div class="screenshot-slot">
-            <img src="images/threads/threads-profile-01.png" alt="Threads profile screenshot" style="width:100%; height:auto;">
+            <img src="images/threads/threads-profile-01.png" alt="Threads profile screenshot (Sayaka)">
             <span class="screenshot-slot-url">@sayaka_writes</span>
           </div>
+          <!-- 3. 真奈美 投稿 -->
           <div class="screenshot-slot">
-            <img src="images/threads/threads-post-02.png" alt="Threads post screenshot" style="width:100%; height:auto;">
+            <img src="images/threads/threads-post-02.png" alt="Threads post screenshot (真奈美)">
+            <span class="screenshot-slot-url">@manami_writes</span>
+          </div>
+          <!-- 4. 真奈美 プロフィール -->
+          <div class="screenshot-slot">
+            <img src="images/threads/threads-profile-02.png" alt="Threads profile screenshot (真奈美)">
             <span class="screenshot-slot-url">@manami_writes</span>
           </div>
         </div>
@@ -2974,63 +2987,42 @@
         <div class="ig-cell">
           <div class="ig-cell-inner ig-bg-1">
             <span class="ig-cell-deco">✦</span>
-            <p class="ig-cell-text">好きだから<br>言えない夜も、<br>ある。</p>
-          </div>
-          <div class="ig-overlay"></div>
-        </div>
-        <div class="ig-cell">
-          <div class="ig-cell-inner ig-bg-2">
-            <span class="ig-cell-deco">◇</span>
-            <p class="ig-cell-text">条件より、<br>空気感で<br>選ぶ。</p>
-          </div>
-          <div class="ig-overlay"></div>
-        </div>
-        <div class="ig-cell">
-          <div class="ig-cell-inner ig-bg-3">
-            <span class="ig-cell-deco">○</span>
-            <p class="ig-cell-text">既読のあとの<br>時間は、<br>意味じゃない。</p>
+            <p class="ig-cell-text">大切な人の前では、<br>無理して強くならなくていい。</p>
           </div>
           <div class="ig-overlay"></div>
         </div>
         <div class="ig-cell">
           <div class="ig-cell-inner ig-bg-4">
-            <span class="ig-cell-deco">◇</span>
-            <p class="ig-cell-text">婚活は<br>自分を変える<br>場所じゃない。</p>
-          </div>
-          <div class="ig-overlay"></div>
-        </div>
-        <div class="ig-cell">
-          <div class="ig-cell-inner ig-bg-5">
-            <span class="ig-cell-deco">✦</span>
-            <p class="ig-cell-text">言葉にできない<br>感情は、<br>嘘じゃない。</p>
+            <span class="ig-cell-deco">○</span>
+            <p class="ig-cell-text">追いかける恋は、<br>ただ疲れてしまうことがある。</p>
           </div>
           <div class="ig-overlay"></div>
         </div>
         <div class="ig-cell">
           <div class="ig-cell-inner ig-bg-6">
-            <span class="ig-cell-deco">○</span>
-            <p class="ig-cell-text">焦ることと、<br>急ぐことは<br>別の話。</p>
+            <span class="ig-cell-deco">◇</span>
+            <p class="ig-cell-text">頑張ろうって思っている時ほど、<br>「ひとりで何とかしなきゃ」って<br>自分を追い詰めちゃうから。</p>
           </div>
           <div class="ig-overlay"></div>
         </div>
         <div class="ig-cell">
-          <div class="ig-cell-inner ig-bg-7">
-            <span class="ig-cell-deco">◇</span>
-            <p class="ig-cell-text">好きという<br>事実だけで、<br>十分。</p>
+          <div class="ig-cell-inner ig-bg-2">
+            <span class="ig-cell-deco">✦</span>
+            <p class="ig-cell-text">恋愛って、「この人が好き」だけじゃなくて、<br>「この人といる自分を、ちゃんと好きでいられるか」<br>も、すごく大事だと思う。</p>
           </div>
           <div class="ig-overlay"></div>
         </div>
         <div class="ig-cell">
           <div class="ig-cell-inner ig-bg-8">
-            <span class="ig-cell-deco">✦</span>
-            <p class="ig-cell-text">一緒にいて<br>自然な人が、<br>正解。</p>
+            <span class="ig-cell-deco">○</span>
+            <p class="ig-cell-text">「大丈夫」は、<br>誰かに頼っていい合図。</p>
           </div>
           <div class="ig-overlay"></div>
         </div>
         <div class="ig-cell">
           <div class="ig-cell-inner ig-bg-9">
-            <span class="ig-cell-deco">○</span>
-            <p class="ig-cell-text">不安と事実は<br>別の話、<br>と知っておく。</p>
+            <span class="ig-cell-deco">◇</span>
+            <p class="ig-cell-text">「好きかわからない」<br>そう言いながら、<br>ずっと考えてしまう恋がある。</p>
           </div>
           <div class="ig-overlay"></div>
         </div>
